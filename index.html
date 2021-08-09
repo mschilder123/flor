@@ -22,9 +22,37 @@ function onDragStart(event) {
   console.log(event);
   drag_child = event.target;
 }
+
 function onDragOver(event) {
   event.preventDefault();
 }
+
+function setState() {
+  var tiles = document.getElementById("tiles");
+  var anchor = ''
+  for (var i = 0, row; row = tiles.rows[i]; ++i) {
+    for (var j = 0, cell; cell = row.cells[j]; ++j) {
+      var img = cell.childNodes[0];
+      if (img.nodeName != 'IMG') img = cell.childNodes[1];
+      var rot = 'a';
+      if (img.style) switch (img.style.transform || 'rotate(0deg)') {
+         case 'rotate(90deg)':
+		rot = 'b'; break;
+         case 'rotate(180deg)':
+		rot = 'c'; break;
+         case 'rotate(270deg)':
+		rot = 'd'; break;
+      }
+      var uri = img.src;
+      var s = uri.indexOf('tiles/');
+      var e = uri.indexOf('.jpg');
+      var n = uri.substring(s + 6, e);
+      anchor += n + rot;
+    }
+  }
+  window.location.hash = anchor;
+}
+
 function onDrop(event) {
   console.log(event);
   const target = event.target;
@@ -43,6 +71,30 @@ function onDrop(event) {
     target.angle = target.angle % 360;
     target.style.transform = 'rotate(' + target.angle + 'deg)';
   }
+
+  window.setTimeout(setState, 0);
+}
+
+function getState() {
+  var anchor = window.location.hash;
+  if (anchor == '') return;
+  anchor = anchor.substring(1);
+  for (var i = 0, row; row = tiles.rows[i]; ++i) {
+    for (var j = 0, cell; cell = row.cells[j]; ++j) {
+      var img = cell.childNodes[0];
+      var roti = anchor.search('[abcd]');
+      var n = anchor.substring(0, roti);
+      img.src = 'tiles/' + n + '.jpg';
+      switch (anchor[roti]) {
+        case 'a': img.style.transform = 'rotate(0deg)'; break;
+        case 'b': img.style.transform = 'rotate(90deg)'; break;
+        case 'c': img.style.transform = 'rotate(180deg)'; break;
+        case 'd': img.style.transform = 'rotate(270deg)'; break;
+      }
+
+      anchor = anchor.substring(roti + 1);
+    }
+  }
 }
 
 function onLoad() {
@@ -50,6 +102,8 @@ function onLoad() {
   tiles.addEventListener('dragstart', onDragStart);
   tiles.addEventListener('dragover', onDragOver);
   tiles.addEventListener('drop', onDrop);
+
+  window.setTimeout(getState, 0);
 }
 </script>
 </head>
