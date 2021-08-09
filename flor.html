@@ -1,0 +1,193 @@
+<html>
+<head>
+
+<style>
+td, tr, img {
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+img {
+  width: 128px;
+  height: 128px;
+}
+table {
+ border-collapse: collapse;
+}
+</style>
+
+<script>
+var drag_child = null;
+function onDragStart(event) {
+  console.log(event);
+  drag_child = event.target;
+}
+function onDragOver(event) {
+  event.preventDefault();
+}
+function onDrop(event) {
+  console.log(event);
+  const target = event.target;
+  if (drag_child && drag_child != target) {
+    // swap tiles
+    var drag_parent = drag_child.parentNode;
+    drag_parent.removeChild(drag_child);
+    var target_parent = target.parentNode;
+    target_parent.removeChild(target);
+    drag_parent.appendChild(target);
+    target_parent.appendChild(drag_child);
+  } else {
+    // rotate tile
+    target.angle = target.angle || 0;
+    target.angle = target.angle + 90;
+    target.angle = target.angle % 360;
+    target.style.transform = 'rotate(' + target.angle + 'deg)';
+  }
+}
+
+function onLoad() {
+  var tiles = document.getElementById("tiles");
+  tiles.addEventListener('dragstart', onDragStart);
+  tiles.addEventListener('dragover', onDragOver);
+  tiles.addEventListener('drop', onDrop);
+}
+</script>
+</head>
+<body onload="onLoad()">
+<table id="tiles">
+<tr>
+<td><img draggable="true" src="tiles/0.jpg"</td>
+<td><img draggable="true" src="tiles/1.jpg"</td>
+<td><img draggable="true" src="tiles/2.jpg"</td>
+<td><img draggable="true" src="tiles/3.jpg"</td>
+<td><img draggable="true" src="tiles/4.jpg"</td>
+<td><img draggable="true" src="tiles/5.jpg"</td>
+<td><img draggable="true" src="tiles/6.jpg"</td>
+<td><img draggable="true" src="tiles/7.jpg"</td>
+<td><img draggable="true" src="tiles/8.jpg"</td>
+<td><img draggable="true" src="tiles/9.jpg"</td>
+<td><img draggable="true" src="tiles/10.jpg"</td>
+<td><img draggable="true" src="tiles/11.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/12.jpg"</td>
+<td><img draggable="true" src="tiles/13.jpg"</td>
+<td><img draggable="true" src="tiles/14.jpg"</td>
+<td><img draggable="true" src="tiles/15.jpg"</td>
+<td><img draggable="true" src="tiles/16.jpg"</td>
+<td><img draggable="true" src="tiles/17.jpg"</td>
+<td><img draggable="true" src="tiles/18.jpg"</td>
+<td><img draggable="true" src="tiles/19.jpg"</td>
+<td><img draggable="true" src="tiles/20.jpg"</td>
+<td><img draggable="true" src="tiles/21.jpg"</td>
+<td><img draggable="true" src="tiles/22.jpg"</td>
+<td><img draggable="true" src="tiles/23.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/24.jpg"</td>
+<td><img draggable="true" src="tiles/25.jpg"</td>
+<td><img draggable="true" src="tiles/26.jpg"</td>
+<td><img draggable="true" src="tiles/27.jpg"</td>
+<td><img draggable="true" src="tiles/28.jpg"</td>
+<td><img draggable="true" src="tiles/29.jpg"</td>
+<td><img draggable="true" src="tiles/30.jpg"</td>
+<td><img draggable="true" src="tiles/31.jpg"</td>
+<td><img draggable="true" src="tiles/32.jpg"</td>
+<td><img draggable="true" src="tiles/33.jpg"</td>
+<td><img draggable="true" src="tiles/34.jpg"</td>
+<td><img draggable="true" src="tiles/35.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/36.jpg"</td>
+<td><img draggable="true" src="tiles/37.jpg"</td>
+<td><img draggable="true" src="tiles/38.jpg"</td>
+<td><img draggable="true" src="tiles/39.jpg"</td>
+<td><img draggable="true" src="tiles/40.jpg"</td>
+<td><img draggable="true" src="tiles/41.jpg"</td>
+<td><img draggable="true" src="tiles/42.jpg"</td>
+<td><img draggable="true" src="tiles/43.jpg"</td>
+<td><img draggable="true" src="tiles/44.jpg"</td>
+<td><img draggable="true" src="tiles/45.jpg"</td>
+<td><img draggable="true" src="tiles/46.jpg"</td>
+<td><img draggable="true" src="tiles/47.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/48.jpg"</td>
+<td><img draggable="true" src="tiles/49.jpg"</td>
+<td><img draggable="true" src="tiles/50.jpg"</td>
+<td><img draggable="true" src="tiles/51.jpg"</td>
+<td><img draggable="true" src="tiles/52.jpg"</td>
+<td><img draggable="true" src="tiles/53.jpg"</td>
+<td><img draggable="true" src="tiles/54.jpg"</td>
+<td><img draggable="true" src="tiles/55.jpg"</td>
+<td><img draggable="true" src="tiles/56.jpg"</td>
+<td><img draggable="true" src="tiles/57.jpg"</td>
+<td><img draggable="true" src="tiles/58.jpg"</td>
+<td><img draggable="true" src="tiles/59.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/60.jpg"</td>
+<td><img draggable="true" src="tiles/61.jpg"</td>
+<td><img draggable="true" src="tiles/62.jpg"</td>
+<td><img draggable="true" src="tiles/63.jpg"</td>
+<td><img draggable="true" src="tiles/64.jpg"</td>
+<td><img draggable="true" src="tiles/65.jpg"</td>
+<td><img draggable="true" src="tiles/66.jpg"</td>
+<td><img draggable="true" src="tiles/67.jpg"</td>
+<td><img draggable="true" src="tiles/68.jpg"</td>
+<td><img draggable="true" src="tiles/69.jpg"</td>
+<td><img draggable="true" src="tiles/70.jpg"</td>
+<td><img draggable="true" src="tiles/71.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/72.jpg"</td>
+<td><img draggable="true" src="tiles/73.jpg"</td>
+<td><img draggable="true" src="tiles/74.jpg"</td>
+<td><img draggable="true" src="tiles/75.jpg"</td>
+<td><img draggable="true" src="tiles/76.jpg"</td>
+<td><img draggable="true" src="tiles/77.jpg"</td>
+<td><img draggable="true" src="tiles/78.jpg"</td>
+<td><img draggable="true" src="tiles/79.jpg"</td>
+<td><img draggable="true" src="tiles/80.jpg"</td>
+<td><img draggable="true" src="tiles/81.jpg"</td>
+<td><img draggable="true" src="tiles/82.jpg"</td>
+<td><img draggable="true" src="tiles/83.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/84.jpg"</td>
+<td><img draggable="true" src="tiles/85.jpg"</td>
+<td><img draggable="true" src="tiles/86.jpg"</td>
+<td><img draggable="true" src="tiles/87.jpg"</td>
+<td><img draggable="true" src="tiles/88.jpg"</td>
+<td><img draggable="true" src="tiles/89.jpg"</td>
+<td><img draggable="true" src="tiles/90.jpg"</td>
+<td><img draggable="true" src="tiles/91.jpg"</td>
+<td><img draggable="true" src="tiles/92.jpg"</td>
+<td><img draggable="true" src="tiles/93.jpg"</td>
+<td><img draggable="true" src="tiles/94.jpg"</td>
+<td><img draggable="true" src="tiles/95.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/96.jpg"</td>
+<td><img draggable="true" src="tiles/97.jpg"</td>
+<td><img draggable="true" src="tiles/98.jpg"</td>
+<td><img draggable="true" src="tiles/99.jpg"</td>
+<td><img draggable="true" src="tiles/100.jpg"</td>
+<td><img draggable="true" src="tiles/101.jpg"</td>
+<td><img draggable="true" src="tiles/102.jpg"</td>
+<td><img draggable="true" src="tiles/103.jpg"</td>
+<td><img draggable="true" src="tiles/104.jpg"</td>
+<td><img draggable="true" src="tiles/105.jpg"</td>
+<td><img draggable="true" src="tiles/106.jpg"</td>
+<td><img draggable="true" src="tiles/107.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/108.jpg"</td>
+<td><img draggable="true" src="tiles/109.jpg"</td>
+<td><img draggable="true" src="tiles/110.jpg"</td>
+<td><img draggable="true" src="tiles/111.jpg"</td>
+<td><img draggable="true" src="tiles/112.jpg"</td>
+<td><img draggable="true" src="tiles/113.jpg"</td>
+<td><img draggable="true" src="tiles/114.jpg"</td>
+<td><img draggable="true" src="tiles/115.jpg"</td>
+<td><img draggable="true" src="tiles/116.jpg"</td>
+<td><img draggable="true" src="tiles/117.jpg"</td>
+<td><img draggable="true" src="tiles/118.jpg"</td>
+<td><img draggable="true" src="tiles/119.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/120.jpg"</td>
+<td><img draggable="true" src="tiles/121.jpg"</td>
+</tr>
+</body>
+</html>
