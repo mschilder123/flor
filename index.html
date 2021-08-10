@@ -91,9 +91,14 @@ function getState() {
         case 'c': img.style.transform = 'rotate(180deg)'; break;
         case 'd': img.style.transform = 'rotate(270deg)'; break;
       }
+      if (i > 9 && j > 8) {  // 10x10
+        cell.style.padding = '5px';
+      }
 
       anchor = anchor.substring(roti + 1);
+      if (anchor == '') break;
     }
+    if (anchor == '') break;
   }
 }
 
@@ -242,6 +247,37 @@ function onLoad() {
 </tr><tr>
 <td><img draggable="true" src="tiles/120.jpg"</td>
 <td><img draggable="true" src="tiles/121.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+</tr><tr>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/122.jpg"</td>
 </tr>
 </body>
 </html>
