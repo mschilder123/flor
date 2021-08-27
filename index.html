@@ -18,8 +18,8 @@ table {
 
 <script>
 var drag_child = null;
-var width = 10;
-var height = 10;
+var flor_width = 10;
+var flor_height = 10;
 
 function onDragStart(event) {
   drag_child = event.target;
@@ -29,9 +29,52 @@ function onDragOver(event) {
   event.preventDefault();
 }
 
+function rotate(target) {
+  if (target.nodeName != 'IMG') return;
+  target.angle = target.angle || 0;
+  target.angle = target.angle + 90;
+  target.angle = target.angle % 360;
+  target.style.transform = 'rotate(' + target.angle + 'deg)';
+}
+
+function onDrop(event) {
+  console.log(event);
+  const target = event.target;
+
+  if (drag_child == null) return;
+
+  if (drag_child != target) {
+    // swap tiles
+    if (target.nodeName == 'IMG' && drag_child.nodeName == 'IMG') {
+      var drag_parent = drag_child.parentNode;
+      drag_parent.removeChild(drag_child);
+      var target_parent = target.parentNode;
+      target_parent.removeChild(target);
+      drag_parent.appendChild(target);
+      target_parent.appendChild(drag_child);
+    }
+  } else {
+    // rotate tile
+    rotate(target);
+  }
+
+  drag_child = null;
+
+  window.setTimeout(setState, 0);
+}
+
+function onClick(event) {
+  // toggle pick / drop
+  if (drag_child == null) {
+    drag_child = event.target;
+  } else {
+    onDrop(event);
+  }
+}
+
 function setState() {
   var tiles = document.getElementById("tiles");
-  var anchor = '' + width + 'x' + height + 'y';
+  var anchor = '' + flor_width + 'x' + flor_height + 'y';
   for (var i = 0, row; row = tiles.rows[i]; ++i) {
     for (var j = 0, cell; cell = row.cells[j]; ++j) {
       var img = cell.childNodes[0];
@@ -55,61 +98,18 @@ function setState() {
   window.location.hash = anchor;
 }
 
-function rotate(target) {
-  target.angle = target.angle || 0;
-  target.angle = target.angle + 90;
-  target.angle = target.angle % 360;
-  target.style.transform = 'rotate(' + target.angle + 'deg)';
-}
-
-function onDrop(event) {
-  console.log(event);
-  const target = event.target;
-
-  if (drag_child && drag_child != target) {
-    // swap tiles
-    var drag_parent = drag_child.parentNode;
-    drag_parent.removeChild(drag_child);
-    var target_parent = target.parentNode;
-    target_parent.removeChild(target);
-    drag_parent.appendChild(target);
-    target_parent.appendChild(drag_child);
-  }
-  drag_child = null;
-
-  window.setTimeout(setState, 0);
-}
-
-function onClick(event) {
-  console.log(event);
-  if (drag_child == null) {
-    drag_child = event.target;
-  } else {
-    onDrop(event);
-  }
-}
-
-function onDblClick(event) {
-  const target = event.target;
-  rotate(target);
-
-  drag_child = null;
-
-  window.setTimeout(setState, 0);
-}
-
 function getState() {
   var anchor = window.location.hash;
   if (anchor == '') return;
   anchor = anchor.substring(1);
   var x = anchor.indexOf('x');
   if (x != -1) {
-    width = parseInt(anchor.substring(0, x));
+    flor_width = parseInt(anchor.substring(0, x));
     anchor = anchor.substring(x + 1);
   }
   var y = anchor.indexOf('y');
   if (y != -1) {
-    height = parseInt(anchor.substring(0, y));
+    flor_height = parseInt(anchor.substring(0, y));
     anchor = anchor.substring(y + 1);
   }
   for (var i = 0, row; row = tiles.rows[i]; ++i) {
@@ -124,7 +124,7 @@ function getState() {
         case 'c': img.style.transform = 'rotate(180deg)'; break;
         case 'd': img.style.transform = 'rotate(270deg)'; break;
       }
-      if (i > height -1  && j > width - 2) {  // 10x10
+      if (i > flor_height - 1 && j > flor_width - 2) {  // 10x10
         cell.style.padding = '5px';
       }
 
@@ -141,7 +141,6 @@ function onLoad() {
   tiles.addEventListener('dragover', onDragOver);
   tiles.addEventListener('drop', onDrop);
   tiles.addEventListener('click', onClick);
-  tiles.addEventListener('dblclick', onDblClick);
 
   window.setTimeout(getState, 0);
 }
