@@ -56,6 +56,7 @@ function setState() {
 function onDrop(event) {
   console.log(event);
   const target = event.target;
+
   if (drag_child && drag_child != target) {
     // swap tiles
     var drag_parent = drag_child.parentNode;
@@ -64,7 +65,6 @@ function onDrop(event) {
     target_parent.removeChild(target);
     drag_parent.appendChild(target);
     target_parent.appendChild(drag_child);
-    drag_child = null;
   } else {
     // rotate tile
     target.angle = target.angle || 0;
@@ -72,34 +72,18 @@ function onDrop(event) {
     target.angle = target.angle % 360;
     target.style.transform = 'rotate(' + target.angle + 'deg)';
   }
+  drag_child = null;
 
   window.setTimeout(setState, 0);
 }
 
-function onTouchStart(event) {
-//  console.log(event);
-//  if (event.touches.length == 1)
-//    onDragStart(event);
-}
-
-function onTouchEnd(event) {
-  if (event.touches.length == 1) {
-    if (drag_child == null) {
-      drag_child = event.target;
-    } else {
-      onDrop(event);
-    }
+function onClick(event) {
+  console.log(event);
+  if (drag_child == null) {
+    drag_child = event.target;
+  } else {
+    onDrop(event);
   }
-}
-
-function onTouchCancel(event) {
-  drag_child = null;
-}
-
-function onTouchMove(event) {
-//  console.log(event);
-// no scrolling on single finger?
-//  if (event.touches.length == 1) event.preventDefault();
 }
 
 function onDblClick(event) {
@@ -145,10 +129,7 @@ function onLoad() {
   tiles.addEventListener('dragstart', onDragStart);
   tiles.addEventListener('dragover', onDragOver);
   tiles.addEventListener('drop', onDrop);
-  tiles.addEventListener('touchstart', onTouchStart);
-  tiles.addEventListener('touchend', onTouchEnd);
-  tiles.addEventListener('touchcancel', onTouchCancel);
-  tiles.addEventListener('touchmove', onTouchMove);
+  tiles.addEventListener('click', onClick);
   tiles.addEventListener('dblclick', onDblClick);
 
   window.setTimeout(getState, 0);
