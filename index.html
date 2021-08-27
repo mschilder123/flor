@@ -64,6 +64,7 @@ function onDrop(event) {
     target_parent.removeChild(target);
     drag_parent.appendChild(target);
     target_parent.appendChild(drag_child);
+    drag_child = null;
   } else {
     // rotate tile
     target.angle = target.angle || 0;
@@ -71,6 +72,37 @@ function onDrop(event) {
     target.angle = target.angle % 360;
     target.style.transform = 'rotate(' + target.angle + 'deg)';
   }
+
+  window.setTimeout(setState, 0);
+}
+
+function onTouchStart(event) {
+  console.log(event);
+  onDragStart(event);
+}
+
+function onTouchEnd(event) {
+  console.log(event);
+  onDrop(event);
+}
+
+function onTouchCancel(event) {
+  console.log(event);
+  drag_child = null;
+}
+
+function onTouchMove(event) {
+  console.log(event);
+}
+
+function onClick(event) {
+  console.log(event);
+  const target = event.target;
+  // rotate tile
+  target.angle = target.angle || 0;
+  target.angle = target.angle + 90;
+  target.angle = target.angle % 360;
+  target.style.transform = 'rotate(' + target.angle + 'deg)';
 
   window.setTimeout(setState, 0);
 }
@@ -107,6 +139,11 @@ function onLoad() {
   tiles.addEventListener('dragstart', onDragStart);
   tiles.addEventListener('dragover', onDragOver);
   tiles.addEventListener('drop', onDrop);
+  tiles.addEventListener('touchstart', onTouchStart);
+  tiles.addEventListener('touchend', onTouchEnd);
+  tiles.addEventListener('touchcancel', onTouchCancel);
+  tiles.addEventListener('touchmove', onTouchMove);
+  tiles.addEventListener('click', onClick);
 
   window.setTimeout(getState, 0);
 }
@@ -276,8 +313,8 @@ function onLoad() {
 <td><img draggable="true" src="tiles/122.jpg"</td>
 <td><img draggable="true" src="tiles/122.jpg"</td>
 <td><img draggable="true" src="tiles/122.jpg"</td>
-<td><img draggable="true" src="tiles/122.jpg"</td>
-<td><img draggable="true" src="tiles/122.jpg"</td>
+<td><img draggable="true" src="tiles/123.jpg"</td>
+<td><img draggable="true" src="tiles/123.jpg"</td>
 </tr>
 </body>
 </html>
