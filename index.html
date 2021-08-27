@@ -77,28 +77,32 @@ function onDrop(event) {
 }
 
 function onTouchStart(event) {
-  console.log(event);
-  onDragStart(event);
+//  console.log(event);
+//  if (event.touches.length == 1)
+//    onDragStart(event);
 }
 
 function onTouchEnd(event) {
-  console.log(event);
-  onDrop(event);
+  if (event.touches.length == 1) {
+    if (drag_child == null) {
+      drag_child = event.target;
+    } else {
+      onDrop(event);
+    }
+  }
 }
 
 function onTouchCancel(event) {
-  console.log(event);
   drag_child = null;
 }
 
 function onTouchMove(event) {
-  console.log(event);
-  // no scrolling on single finger?
-  if (event.touches.length == 1) event.preventDefault();
+//  console.log(event);
+// no scrolling on single finger?
+//  if (event.touches.length == 1) event.preventDefault();
 }
 
-function onClick(event) {
-  console.log(event);
+function onDblClick(event) {
   const target = event.target;
   // rotate tile
   target.angle = target.angle || 0;
@@ -145,13 +149,13 @@ function onLoad() {
   tiles.addEventListener('touchend', onTouchEnd);
   tiles.addEventListener('touchcancel', onTouchCancel);
   tiles.addEventListener('touchmove', onTouchMove);
-  tiles.addEventListener('click', onClick);
+  tiles.addEventListener('dblclick', onDblClick);
 
   window.setTimeout(getState, 0);
 }
 </script>
 </head>
-<body onload="onLoad()">
+<body onload="onLoad();" oncontextmenu="return false;">
 <table id="tiles">
 <tr>
 <td><img draggable="true" src="tiles/0.jpg"</td>
