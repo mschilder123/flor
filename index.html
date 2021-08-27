@@ -93,6 +93,8 @@ function onTouchCancel(event) {
 
 function onTouchMove(event) {
   console.log(event);
+  // no scrolling on single finger?
+  if (event.touches.length == 1) event.preventDefault();
 }
 
 function onClick(event) {
